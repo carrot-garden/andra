@@ -1,0 +1,13 @@
+
+currentType( subType( Number ) ).accept {
+	[
+		m: "meter",
+		yd: "yard",
+		cm: "centimerter",
+		mi: "mile",
+		km: "kilometer"
+	].each {
+		property name:it.key, type:"Distance",
+		doc: """A <code>${it.value}</code> from <a href="$url">$url</a>"""
+	}
+}
