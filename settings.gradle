@@ -1,5 +1,38 @@
 
-include "module:doc"
+include "design"
 
+include "java-ibm"
+include "java-oracle"
 
-println "XXX"
+include "model"
+
+rootProject.children.each { project ->
+	project.name = rootProject.name + "-" + project.name
+}
+
+//def discover(root) {
+//	println "### ${root.name} @ ${root.projectDir}"
+//	root.children.each { node ->
+//		node.name = root.name + "-" + node.name
+//		discover(node)
+//	}
+//}
+
+//discover(rootProject)
+
+//import static groovy.io.FileType.*
+//
+//rootDir.eachDir { dir ->
+//
+//	println "### dir: ${dir}"
+//
+//	dir.eachFileMatch FILES, ~/build.gradle/, { //
+//		build ->
+//		name = dir.name
+//		include name
+//		path = ':' + name
+//		node = project(path)
+//		node.projectDir = dir
+//	}
+//
+//}
