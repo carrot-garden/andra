@@ -1,4 +1,6 @@
 
+buildDir '.build'
+
 apply plugin: 'groovy'
 
 repositories {
