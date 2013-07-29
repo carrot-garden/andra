@@ -1,0 +1,51 @@
+
+apply plugin: 'maven'
+
+configurations {
+	andraJava
+	andraMain
+}
+
+repositories {
+	//
+	maven {   //
+		url "http://repository-andra.forge.cloudbees.com/release/"  }
+}
+
+dependencies {
+	//
+	andraJava "andra-java:oracle-jre-linux-x86_32:7.25"
+	andraMain project(":andra-main")
+}
+
+delete "${buildDir}/tmp"
+
+def java =
+		[
+			archiveFile : "${name}-linux-x86_32.tgz"
+		]
+
+import org.apache.tools.ant.filters.*
+task copyRun(type: Copy) {
+	from 'src'
+	into "${buildDir}/assembly"
+	fileMode = 0755
+	filter(ReplaceTokens,tokens: [launchJar: "andra-main.jar"])
+}
+
+task copyMain(type: Copy) {
+	from configurations.andraMain
+	into "${buildDir}/assembly/andra"
+}
+
+task copyJava(type: Copy, depepndsOn: copyMain) {
+	from tarTree(configurations.andraJava.singleFile)
+	into "${buildDir}/assembly/java"
+}
+
+task compact(type: Tar, dependsOn: [copyRun, copyMain, copyJava]) {
+	compression = Compression.GZIP
+	from "${buildDir}/assembly"
+	archiveName = java.archiveFile
+	destinationDir = new File("${buildDir}") 
+}

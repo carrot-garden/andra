@@ -1,0 +1,17 @@
+
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'application'
+
+mainClassName = 'andra.main.App'
+
+dependencies {  compile project(":andra-system") }
+
+jar {
+	manifest { attributes 'Main-Class': mainClassName }
+	from {
+		configurations.runtime.collect {
+			it.isDirectory() ? it : zipTree(it)
+		}
+	}
+}

@@ -2,9 +2,6 @@
 task wrapper(type: Wrapper) { gradleVersion = '1.6' }
 
 allprojects { project ->
-}
-
-subprojects { project ->
 
 	repositories {
 		mavenLocal()
@@ -15,7 +12,14 @@ subprojects { project ->
 	apply plugin: 'eclipse'
 
 	buildDir '.build'
-	
-	defaultTasks 'build'
 
+	defaultTasks 'build'
+}
+
+subprojects { project ->
+
+	apply plugin: 'java'
+	
+	sourceCompatibility = 1.7
+	targetCompatibility = 1.7
 }

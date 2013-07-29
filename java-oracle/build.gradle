@@ -117,10 +117,10 @@ javaList.each { java ->
 		}
 	}
 
-	task ("build") {
-		dependsOn = tasks.findAll { task ->
-			task.name.startsWith('upload')
-		}
-	}
+}
 
+build {
+	dependsOn = tasks.findAll { task ->
+		task.name.startsWith('upload')
+	}
 }

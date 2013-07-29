@@ -1,10 +1,20 @@
 
+include "distro"
+
 include "design"
+
+include "model"
+
+include "main"
+include "command"
+include "system"
+
+include "service-host"
+include "service-monitor"
 
 include "java-ibm"
 include "java-oracle"
 
-include "model"
 
 rootProject.children.each { project ->
 	project.name = rootProject.name + "-" + project.name
